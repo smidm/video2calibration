@@ -51,7 +51,7 @@ if __name__ == '__main__':
         print('Searching for chessboard in frame ' + str(i) + '...'),
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         h, w = img.shape[:2]
-        found, corners = cv2.findChessboardCorners(img, pattern_size, cv2.CALIB_CB_FILTER_QUADS)
+        found, corners = cv2.findChessboardCorners(img, pattern_size, flags=cv2.CALIB_CB_FILTER_QUADS)
         if found:
             term = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_COUNT, 30, 0.1)
             cv2.cornerSubPix(img, corners, (5, 5), (-1, -1), term)
