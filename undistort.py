@@ -7,7 +7,6 @@ import yaml
 from glob import glob
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser(description='Undistort images based on camera calibration.')
     parser.add_argument('calibration', help='input video file')
     parser.add_argument('input_mask', help='input mask')
@@ -18,10 +17,10 @@ if __name__ == '__main__':
         c = yaml.load(fr)
 
     for fn in glob(args.input_mask):
-        print 'processing %s...' % fn,
+        print(f'processing {fn}...')
         img = cv2.imread(fn)
         if img is None:
-            print("Failed to load " + fn)
+            print(f"failed to load {fn}")
             continue
 
         K_undistort = np.array(c['camera_matrix'])
@@ -33,6 +32,4 @@ if __name__ == '__main__':
         name, ext = os.path.splitext(os.path.basename(fn))
         cv2.imwrite(os.path.join(args.out, name + '_und' + ext), img_und)
 
-        print 'ok'
-
-
+        print('ok')

@@ -48,7 +48,7 @@ if __name__ == '__main__':
             if i % args.framestep != 0:
                 continue
 
-        print('Searching for chessboard in frame ' + str(i) + '...'),
+        print(f'Searching for chessboard in frame {i}... ', end='')
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         h, w = img.shape[:2]
         found, corners = cv2.findChessboardCorners(img, pattern_size, flags=cv2.CALIB_CB_FILTER_QUADS)
@@ -60,12 +60,12 @@ if __name__ == '__main__':
             cv2.drawChessboardCorners(img_chess, pattern_size, corners, found)
             cv2.imwrite(os.path.join(args.debug_dir, '%04d.png' % i), img_chess)
         if not found:
-            print 'not found'
+            print('not found')
             continue
         img_points.append(corners.reshape(1, -1, 2))
         obj_points.append(pattern_points.reshape(1, -1, 3))
 
-        print 'ok'
+        print('ok')
 
     if args.corners:
         with open(args.corners, 'wb') as fw:
@@ -79,11 +79,11 @@ if __name__ == '__main__':
 #        obj_points = pickle.load(fr)
 #        w, h = pickle.load(fr)
 
-    print('\nPerforming calibration...')
+    print('\ncalibrating...')
     rms, camera_matrix, dist_coefs, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, (w, h), None, None)
-    print "RMS:", rms
-    print "camera matrix:\n", camera_matrix
-    print "distortion coefficients: ", dist_coefs.ravel()
+    print("RMS:", rms)
+    print("camera matrix:\n", camera_matrix)
+    print("distortion coefficients: ", dist_coefs.ravel())
 
     # # fisheye calibration
     # rms, camera_matrix, dist_coefs, rvecs, tvecs = cv2.fisheye.calibrate(
