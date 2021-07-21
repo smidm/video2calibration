@@ -8,7 +8,7 @@ It finds following parameters:
   * focal length
   * principal point
   * radial distortion coefficients
-  
+
 using video of a moving chessboard pattern or a sequence of images as an input.
 
 Example input: 
@@ -35,14 +35,12 @@ Requirements:
 
   * numpy
   * PyYAML
-  * OpenCV 3
+  * OpenCV
 
-Using pip the numpy and PyYAML can be installed as follows:
+requirements installatio using `pip`:
 ~~~
-$ pip install < requirements.txt
+$ pip install -r requirements.txt
 ~~~
-
-Download and install [OpenCV 3.0 or newer](http://opencv.org/downloads.html). The python bindings have to be installed. If the OpenCV is not installed in the system, the python sys.path has to be set to point to cv2.so or cv2.pyd. It can be achieved by setting PYTHONPATH environment variable.
 
 Camera Calibration
 ------------------
@@ -54,7 +52,7 @@ Camera Calibration
     * try to move the pattern to cover all parts of the camera view, pay attention to the corners
     * the length of the video should be 1 or 2 minutes
  3. run the calibration.py to extract chessboard pattern corners from the video and perform camera calibration
- 
+
 Example usage (you can actually run the example, the input data is present in the ./example_input):
 
 ~~~
