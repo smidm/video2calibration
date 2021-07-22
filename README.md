@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/smidm/video2calibration.svg?branch=master)](https://travis-ci.com/smidm/video2calibration)
+
+
 Camera Calibration Using OpenCV
 ===============================
 
@@ -31,16 +34,16 @@ rms: 1.1814231691868478
 Installation
 ------------
 
-Requirements:
+```
+pip install video2calibration
+```
 
-  * numpy
-  * PyYAML
-  * OpenCV
+You can also install the in-development version with::
 
-requirements installatio using `pip`:
-~~~
-$ pip install -r requirements.txt
-~~~
+```
+pip install https://github.com/smidm/video2calibration/archive/master.zip
+```
+
 
 Camera Calibration
 ------------------
@@ -56,7 +59,7 @@ Camera Calibration
 Example usage (you can actually run the example, the input data is present in the ./example_input):
 
 ~~~
-$ ./calibrate.py --help
+$ calibrate.py --help
 usage: calibrate.py [-h] [--debug-dir DEBUG_DIR] [-c CORNERS] [-fs FRAMESTEP]
                     input out
 
@@ -78,7 +81,7 @@ optional arguments:
 
 
 $ mkdir out
-$ ./calibrate.py example_input/chessboard.avi calibration.yaml --debug-dir out
+$ calibrate.py example_input/chessboard.avi calibration.yaml --debug-dir out
 Searching for chessboard in frame 0... not found
 Searching for chessboard in frame 20... not found
 Searching for chessboard in frame 40... not found
@@ -124,7 +127,7 @@ Removing Radial Distortion
 You can test the found radial distortion coefficients by removing distortion from an image and checking if straight lines are really straight.
 
 ~~~
-$ ./undistort.py --help
+$ undistort.py --help
 usage: undistort.py [-h] calibration input_mask out
 
 Undistort images based on camera calibration.
@@ -137,10 +140,19 @@ positional arguments:
 optional arguments:
   -h, --help   show this help message and exit
 
-$ ./undistort.py calibration.yaml 'example_input/*.png' out/
+$ undistort.py calibration.yaml 'example_input/*.png' out/
 processing example_input/distorted.png... ok
 
 ~~~
+
+Development
+-----------
+
+To run all the tests run:
+
+```
+tox
+```
 
 License
 -------
