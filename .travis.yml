@@ -13,7 +13,16 @@ matrix:
       env:
         - TOXENV=check
     - env:
-        - TOXENV=py39-opencv44-numpy121
+        - TOXENV=py36-opencv34
+      python: '3.6'
+    - env:
+        - TOXENV=py36-opencv44
+      python: '3.6'
+    - env:
+        - TOXENV=py39-opencv34
+      python: '3.9'
+    - env:
+        - TOXENV=py39-opencv44
       python: '3.9'
 before_install:
   - python --version
