@@ -53,15 +53,14 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Utilities',
-        'Private :: Do Not Upload',
     ],
     project_urls={
-        'Changelog': 'https://github.com/smidm/video2calibration/blob/master/CHANGELOG.md',
+        # 'Changelog': 'https://github.com/smidm/video2calibration/blob/master/CHANGELOG.md',
         'Issue Tracker': 'https://github.com/smidm/video2calibration/issues',
     },
-    keywords=[
-        # eg: 'keyword1', 'keyword2', 'keyword3',
-    ],
+    # keywords=[
+    #     # eg: 'keyword1', 'keyword2', 'keyword3',
+    # ],
     python_requires='>=3.6',
     install_requires=[
         'numpy',
