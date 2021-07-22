@@ -15,6 +15,7 @@ if __name__ == '__main__':
                         default=None)
     parser.add_argument('-c', '--corners', help='output corners file', default=None)
     parser.add_argument('-fs', '--framestep', help='use every nth frame in the video', default=20, type=int)
+    parser.add_argument('-max', '--max-frames', help='limit the number of frames used for calibration', default=None, type=int)
     # parser.add_argument('--figure', help='saved visualization name', default=None)
     args = parser.parse_args()
 
@@ -32,40 +33,44 @@ if __name__ == '__main__':
     obj_points = []
     img_points = []
     h, w = 0, 0
-    i = -1
+    frame = -1
+    used_frames = 0
     while True:
-        i += 1
+        frame += 1
         if isinstance(source, list):
             # glob
-            if i == len(source):
+            if frame == len(source):
                 break
-            img = cv2.imread(source[i])
+            img = cv2.imread(source[frame])
         else:
             # cv2.VideoCapture
             retval, img = source.read()
             if not retval:
                 break
-            if i % args.framestep != 0:
+            if frame % args.framestep != 0:
                 continue
 
-        print(f'Searching for chessboard in frame {i}... ', end='')
+        print(f'Searching for chessboard in frame {frame}... ', end='')
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         h, w = img.shape[:2]
         found, corners = cv2.findChessboardCorners(img, pattern_size, flags=cv2.CALIB_CB_FILTER_QUADS)
         if found:
             term = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_COUNT, 30, 0.1)
             cv2.cornerSubPix(img, corners, (5, 5), (-1, -1), term)
+            used_frames += 1
+            img_points.append(corners.reshape(1, -1, 2))
+            obj_points.append(pattern_points.reshape(1, -1, 3))
+            print('ok')
+            if args.max_frames is not None and used_frames >= args.max_frames:
+                print(f'Found {used_frames} frames with the chessboard.')
+                break
+        else:
+            print('not found')
+
         if args.debug_dir:
             img_chess = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
             cv2.drawChessboardCorners(img_chess, pattern_size, corners, found)
-            cv2.imwrite(os.path.join(args.debug_dir, '%04d.png' % i), img_chess)
-        if not found:
-            print('not found')
-            continue
-        img_points.append(corners.reshape(1, -1, 2))
-        obj_points.append(pattern_points.reshape(1, -1, 3))
-
-        print('ok')
+            cv2.imwrite(os.path.join(args.debug_dir, '%04d.png' % frame), img_chess)
 
     if args.corners:
         with open(args.corners, 'wb') as fw:
