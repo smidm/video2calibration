@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-import numpy as np
-import cv2
-import os
 import argparse
-import yaml
+import os
 import pickle
 from glob import glob
+
+import cv2
+import numpy as np
+import yaml
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Calibrate camera using a video of a chessboard or a sequence of images.')
@@ -77,7 +78,7 @@ if __name__ == '__main__':
             pickle.dump(img_points, fw)
             pickle.dump(obj_points, fw)
             pickle.dump((w, h), fw)
-        
+
 # load corners
 #    with open('corners.pkl', 'rb') as fr:
 #        img_points = pickle.load(fr)
@@ -100,6 +101,6 @@ if __name__ == '__main__':
     # print "camera matrix:\n", camera_matrix
     # print "distortion coefficients: ", dist_coefs.ravel()
 
-    calibration = {'rms': rms, 'camera_matrix': camera_matrix.tolist(), 'dist_coefs': dist_coefs.tolist() }
+    calibration = {'rms': rms, 'camera_matrix': camera_matrix.tolist(), 'dist_coefs': dist_coefs.tolist()}
     with open(args.out, 'w') as fw:
         yaml.dump(calibration, fw)

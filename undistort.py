@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-import numpy as np
-import cv2
-import os
 import argparse
-import yaml
+import os
 from glob import glob
+
+import cv2
+import numpy as np
+import yaml
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Undistort images based on camera calibration.')
