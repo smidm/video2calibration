@@ -23,7 +23,7 @@ def read(*names, **kwargs):
 
 setup(
     name='video2calibration',
-    version='0.0.0',
+    version='0.0.1',
     license='MIT',
     description='OpenCV camera calibration from a video',
     long_description=re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.md')),
