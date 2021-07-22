@@ -14,7 +14,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     with open(args.calibration) as fr:
-        c = yaml.load(fr)
+        c = yaml.safe_load(fr)
 
     for fn in glob(args.input_mask):
         print(f'processing {fn}...')
