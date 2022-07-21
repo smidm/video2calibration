@@ -48,13 +48,15 @@ pip install https://github.com/smidm/video2calibration/archive/master.zip
 Camera Calibration
 ------------------
 
- 1. print the pattern.png and glue it to a solid board
- 3. fix the camera lens zoom, the calibration values change with the lens zoom changes
- 2. record a video with the pattern moving in front of the camera
+ 1. print the [pattern](pattern.png) without any distortions
+ 2. check if the printed squares are correct squares
+ 3. glue the pattern to a solid board
+ 4. fix the camera lens zoom, the calibration values change with the lens zoom changes
+ 5. record a video with the pattern moving in front of the camera
     * the pattern should be most of the time completely visible
     * try to move the pattern to cover all parts of the camera view, pay attention to the corners
     * the length of the video should be 1 or 2 minutes
- 3. run the calibration.py to extract chessboard pattern corners from the video and perform camera calibration
+ 6. run the calibration.py to extract chessboard pattern corners from the video and perform camera calibration
 
 Example usage (you can actually run the example, the input data is present in the ./example_input):
 
